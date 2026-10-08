@@ -7,11 +7,14 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test --test-concurrency=1 tests/database.test.mjs"
+    "test": "node --test --test-concurrency=1 tests/database.test.mjs",
+    "test:ios-contract": "node --test tests/ios-contract.test.mjs",
+    "test:all": "node --test --test-concurrency=1 tests/*.test.mjs"
   },
   "devDependencies": {
     "@electric-sql/pglite": "0.5.8",
     "embedded-postgres": "17.10.0-beta.17",
-    "pg": "8.23.1"
+    "pg": "8.23.1",
+    "yaml": "2.9.1"
   }
 }
