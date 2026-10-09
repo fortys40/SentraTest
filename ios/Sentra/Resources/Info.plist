@@ -27,6 +27,8 @@
     </array>
     <key>LSRequiresIPhoneOS</key>
     <true/>
+    <key>NSMotionUsageDescription</key>
+    <string>Motion adds a subtle tilt and shine to your player card.</string>
     <key>UIApplicationSceneManifest</key>
     <dict>
         <key>UIApplicationSupportsMultipleScenes</key>

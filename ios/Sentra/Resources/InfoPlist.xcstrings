@@ -1,0 +1,13 @@
+{
+  "sourceLanguage": "el",
+  "strings": {
+    "NSMotionUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "el": { "stringUnit": { "state": "translated", "value": "Η κίνηση δίνει διακριτική κλίση και λάμψη στην κάρτα σου." } },
+        "en": { "stringUnit": { "state": "translated", "value": "Motion adds a subtle tilt and shine to your player card." } }
+      }
+    }
+  },
+  "version": "1.0"
+}
