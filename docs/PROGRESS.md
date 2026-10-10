@@ -2,6 +2,32 @@
 
 Last updated: 2026-10-09. Current boundary: **Step 2 plus the authorized card-only redesign**.
 
+## React Native Port (2026-10-11)
+
+The owner asked for the whole project to move to React Native with Expo, for iOS
+and Android. Scope was the existing Step 2 boundary only; no Step 3+ work.
+
+- [x] New Expo SDK 57 app in `mobile/` (TypeScript, Expo Router). Swift project
+  moved unchanged to `legacy/ios/`; ignore rules and the Swift contract test's
+  paths were repointed.
+- [x] Ported: all table/view/enum models with strict decoding, 14 service
+  interfaces, five live Supabase adapters, unavailable and mock services,
+  configuration validation, el/en strings, theme, all components, player card,
+  photo editor, offline dashboard, 14 placeholder routes, inert deep links.
+- [x] `npm test` (42 Jest tests), `npm run typecheck`, `npx expo-doctor` (21/21)
+  and `npx expo export` for iOS and Android all pass.
+- [ ] **Not yet seen running.** Expo Go was installed on the iOS simulator but
+  the launch stopped at the system "Open in Expo Go?" prompt. Android not run.
+- [ ] Open items are listed under "Known gaps in the port" in
+  [AGENTS.md](../AGENTS.md): face detection, device-motion check on hardware,
+  Android shadow, session storage choice, TypeScript schema contract test.
+- `npm run test:ios-contract` could not run: the root `yaml` dev dependency is
+  not installed, and tracked root `node_modules` were deliberately left alone.
+- No migration, seed, Supabase setting, commit or branch was changed.
+
+The sections below describe the retired Swift delivery; paths starting `ios/`
+are now under `legacy/ios/`.
+
 ## Step Ledger
 
 | Step | Scope | Status |
