@@ -1,6 +1,6 @@
 # Sentra Progress
 
-Last updated: 2026-10-09. Current boundary: **Step 2 plus the authorized card-only redesign**.
+Last updated: 2026-10-12. Current boundary: **Step 2 plus the authorized card-only redesign**.
 
 ## Step Ledger
 
@@ -14,7 +14,35 @@ Last updated: 2026-10-09. Current boundary: **Step 2 plus the authorized card-on
 | 6 | Recurrence, push, EventKit | Not started |
 | 7 | Web RSVP, Universal Links, card share pages | Not started |
 | 8 | Rating, player card, badges, sharing | Workflows not started; isolated renderer/editor prototype authorized within Step 2 review |
-| 9 | Cosmetic purchases and analytics | Not started |
+| 9 | Analytics; proposed venue/league model requires separate scope review | Not started; card purchases cancelled |
+
+## Product Direction: 2026-10-12
+
+- Decision: combine free friend-group organization with a possible venue-run
+  league experience. Venue/league requirements and delivery have not been
+  specified or validated with a pilot. This decision does
+  not authorize implementation of league features, new tables or Steps 3-9.
+- The App Store app stays free to download. Venue owners initially get limited
+  league-organizer access. The Sentra operator personally handles the cash
+  agreement outside the app and manually enables full access after receiving
+  payment, with legal documentation to confirm with an accountant. No venue
+  pricing, checkout, cash-receipt or payment-details feature is planned in the app.
+- A future server-authoritative grant must bind full access to the right venue
+  and organizer account; league APIs, not only UI controls, must enforce it.
+  Limited/full scope, expiry or revocation, and App Store policy need review.
+  No grant table, admin activation tool or league workflow is deployed or authorized
+  for implementation yet; never use a client flag or shared login as the grant.
+- Explicitly **keep** the optional Step 5 pitch-cost split, paid markers and
+  "Ποιος χρωστάει" tracking among players. Those `payments` rows are not venue
+  charges and do not move money inside the app.
+- Explicitly **cancel** paid card designs, StoreKit/RevenueCat purchases, packs,
+  purchase screens, restore purchases and purchase analytics. Cards shown
+  to players are not sold. The unused RevenueCat example/config key remains in
+  the Step 2 foundation pending a separately scoped cleanup; its presence does
+  not reauthorize in-app purchases.
+- No code, config, migration, backend grant, App Store listing, payment collection
+  or deployment was changed for this decision. Mac build and XCTest gates below
+  are still pending.
 
 ## Deployment and Repository Facts
 

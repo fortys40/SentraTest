@@ -33,7 +33,15 @@ over the image. This alignment updates Step 2 previews only, not the later scree
 | 6 | Recurrence UI, Edge workers, APNs and EventKit | Deferred |
 | 7 | Web RSVP, Universal Links and AASA | Deferred |
 | 8 | Player card, sharing and badge UI | Deferred |
-| 9 | Cosmetic purchases and analytics | Deferred |
+| 9 | Analytics; venue/league pilot needs separate scope review | Deferred; card purchases cancelled |
+
+The app remains free to download. The owner handles any venue/league agreement
+and cash payment entirely outside the app. The venue organizer initially has
+limited league access; after receiving cash, the Sentra operator manually grants
+full access. A future server-side grant will require separate schema/policy review;
+no venue checkout, receipt tracking or card-design purchases are planned.
+The optional player-to-player pitch-cost split remains a separate Step 5 feature.
+See [the product decision](docs/PROGRESS.md#product-direction-2026-10-12).
 
 ## Files
 
@@ -147,7 +155,7 @@ Its ignore exception is already configured; no transitive lockfile was fabricate
 ### Configuration and Service Boundary
 
 The example exposes `SUPABASE_URL`, `SUPABASE_ANON_KEY`,
-`UNIVERSAL_LINK_DOMAIN`, and `REVENUECAT_PUBLIC_SDK_KEY`, plus `DEVELOPMENT_TEAM`
+`UNIVERSAL_LINK_DOMAIN`, and the legacy unused `REVENUECAT_PUBLIC_SDK_KEY`, plus `DEVELOPMENT_TEAM`
 for automatic device signing. The bundle ID is `com.sarantos.sentra`; the display
 name is `Σέντρα`. Select your own signing team before a device build. Simulator
 commands above disable signing.

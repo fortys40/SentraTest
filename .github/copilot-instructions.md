@@ -2,12 +2,16 @@
 
 ## 0. Project Summary
 
-App: `Sentra`; App Store display name: `Σέντρα`. An iOS app organizing amateur
-football among friend groups (5x5, 7x7, 8x8, 11x11). It replaces WhatsApp/Viber
+App: `Sentra`; App Store display name: `Σέντρα`. A free iOS app for amateur
+football among friend groups (5x5, 7x7, 8x8, 11x11), with a proposed second use
+for venues organizing leagues. For friend groups it replaces WhatsApp/Viber
 coordination with RSVP, guests, waitlists, recurring matches, optional results,
-optional cost splitting, anonymous MVP voting, statistics, an original football
-player card, badges, and cosmetic premium card designs. The player card is the
-main viral/growth feature.
+optional pitch-cost splitting, anonymous MVP voting, statistics, an original
+football player card and badges. The card is a growth feature, not a purchase.
+The venue organizer initially has limited league access; after receiving payment
+in cash outside the app, the Sentra operator manually enables full league access.
+League administration and access controls need separate product/schema review
+before implementation; this decision does not authorize Step 3 or change deployed SQL.
 
 ## 2. Current Status
 
@@ -34,7 +38,9 @@ main viral/growth feature.
   strings. User/backend data is not a localization key.
 - Ignore `ios/Config/Config.xcconfig`; commit only `Config.xcconfig.example` with
   `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `UNIVERSAL_LINK_DOMAIN`, and
-  `REVENUECAT_PUBLIC_SDK_KEY`. NEVER put a service-role/secret key in the app.
+  the legacy `REVENUECAT_PUBLIC_SDK_KEY` until a separately reviewed config cleanup.
+  Do not implement RevenueCat or require that key. NEVER put a service-role/secret
+  key in the app.
 - Enforce business rules in the database, not only in UI. Use authorized RPCs
   for mutations; RLS read access is not write permission.
 - Models: `Codable`, `Identifiable`, `Hashable`, `Sendable`; explicit `CodingKeys`
@@ -106,7 +112,8 @@ main viral/growth feature.
 - Stage 3: cost split OPTIONAL, chosen at the end, can be enabled/edited later.
   Off creates no payments. On uses editable total (prefilled if available), pitch
   payer, total / played participants rounded to EUR 0.50. Guests aggregate to
-  inviter. Paid markers and "Ποιος χρωστάει" list.
+  inviter. Paid markers and "Ποιος χρωστάει" list. These are records between
+  players, not payments to Sentra, checkout, or in-app money transfers.
 - Respect deployed signed rounding remainder and settled-payment guards. A finished
   roster is immutable; later audited roster correction requires a new contract.
 - Stage 4: MVP voting opens regardless of result or cost splitting.
@@ -164,27 +171,31 @@ main viral/growth feature.
 - Pre-login DB preview/web RPCs are service-role-only; never call them from iOS
   with a privileged key. Build the authenticated/abuse-protected Edge boundary later.
 
-### 4.12 Monetization (Step 9, Cosmetic Only)
+### 4.12 Business Model (Proposed Venue Pilot)
 
-- App is 100% free; no ads, no subscriptions at launch. Purchases NEVER affect
-  rating, tiers, statistics, badges earned by play, RSVP, voting, or rankings.
-- StoreKit 2 + RevenueCat non-consumables, appUserID = Supabase user UUID:
-  - `sentra.card.holo` EUR 0.99, motion shine.
-  - `sentra.card.teamcolors` EUR 0.99, two colors, no club names/logos.
-  - `sentra.card.legend` EUR 1.99, dark/gold animated.
-  - `sentra.pack.founding` EUR 2.99, all three plus exclusive "Ιδρυτικό μέλος"
-    design and founder badge. Sold until `app_config.founding_pack_ends_at`;
-    existing owners keep it forever.
-- RevenueCat webhook -> Edge Function -> server-owned `user_card_designs`.
-- Live previews, priced locked states, Restore Purchases, soft upsell at most
-  weekly (after MVP, tier-up, before sharing).
+- The App Store app is free to download for players and organizers. No in-app
+  purchases, cosmetic card sales, prices, checkout, or payment integration are
+  planned. Cards, tiers, badges and player participation are not sold.
+- The venue owner can see a limited organizer experience before activation. The
+  Sentra operator alone handles the cash agreement outside the app, with legally
+  appropriate documentation confirmed with an accountant. After receiving cash,
+  the operator manually enables full league-organizer access for that venue owner.
+  Do not collect or store venue prices, cash receipts or payment details in the app.
+- The future access grant must be server-authoritative and scoped to the correct
+  venue and organizer account; both UI and authorized league APIs must enforce it.
+  Never unlock via a local flag, shared login or a client's assertion of payment.
+  Exactly what limited/full access includes, any expiry/revocation rules and the
+  App Store policy implications need review before schema or workflow changes.
+- The optional pitch-cost split in Step 5 remains a separate, unchanged feature
+  for tracking debts among participants, not Sentra billing.
 
 ### 4.13 Analytics (Step 9)
 
 - TelemetryDeck or PostHog without personal data. Events: group_created,
   match_created, rsvp_set, guest_added, match_finished, cost_split_enabled,
-  mvp_vote_cast, card_shared, invite_link_opened, app_installed_from_invite,
-  paywall_viewed, design_previewed, purchase_completed. SQL weekly KPI view.
+  mvp_vote_cast, card_shared, invite_link_opened, app_installed_from_invite.
+  Venue/league pilot metrics require a separate reviewed data contract. SQL weekly
+  KPI view remains proposed, not deployed.
 
 ## 5. Design System
 
@@ -208,7 +219,7 @@ ios/
     Models/
     Services/ (Protocols, Live, Mock)
     Features/ (Onboarding, Invite, Groups, Match, FinishMatch, Payments, Voting,
-               Series, PlayerCard, Stats, Profile, Monetization; fill in later steps)
+           Series, PlayerCard, Stats, Profile; fill in later steps)
     Resources/ (Assets.xcassets, Localizable.xcstrings, Info.plist)
   SentraTests/
 supabase/ (existing)
@@ -225,7 +236,7 @@ web/ (Step 7)
 6. Recurring matches, push, calendar.
 7. Web RSVP and Universal Links.
 8. Player card, rating, badges, sharing.
-9. Cosmetic monetization and analytics.
+9. Analytics and any separately approved venue/league workflow; no card purchases.
 
 Before each step read `docs/PROGRESS.md` and nearby existing code. Keep previews
 offline through mock services. Add focused unit tests. At each step's end update
