@@ -1,5 +1,11 @@
 # Sentra Project Instructions
 
+> **2026-10-11:** the client is now React Native with Expo in `mobile/`, for iOS
+> and Android. The SwiftUI app is retired in `legacy/ios/`. Read
+> [AGENTS.md](../AGENTS.md) first: it replaces the stack, conventions and file
+> layout in sections 3 and 6 below. Product rules, design and the step plan here
+> still apply.
+
 ## 0. Project Summary
 
 App: `Sentra`; App Store display name: `Σέντρα`. A free iOS app for amateur

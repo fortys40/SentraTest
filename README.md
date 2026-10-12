@@ -2,6 +2,11 @@
 
 App Store display name: **Σέντρα**. Amateur football for friend groups.
 
+> **2026-10-11:** the app was ported from SwiftUI to React Native with Expo. The
+> app is in [mobile/](mobile/); the Swift project moved to [legacy/ios/](legacy/ios/)
+> and is read-only. Start with [AGENTS.md](AGENTS.md) for architecture, commands
+> and rules. Paths below that begin with `ios/` now live under `legacy/ios/`.
+
 ## Review Gate: Step 2
 
 Step 2 now contains the iOS foundation: deployed-contract Swift models, injectable

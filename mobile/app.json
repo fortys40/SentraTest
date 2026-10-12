@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "name": "Σέντρα",
+    "slug": "sentra",
+    "scheme": "sentra",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "backgroundColor": "#F5F7F5",
+    "locales": {
+      "el": "./locales/el.json",
+      "en": "./locales/en.json"
+    },
+    "ios": {
+      "bundleIdentifier": "com.sarantos.sentra",
+      "supportsTablet": false,
+      "infoPlist": {
+        "CFBundleDevelopmentRegion": "el",
+        "CFBundleLocalizations": [
+          "el",
+          "en"
+        ],
+        "CFBundleAllowMixedLocalizations": true
+      }
+    },
+    "android": {
+      "package": "com.sarantos.sentra",
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-localization",
+      "expo-asset",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The photo you choose appears on your player card.",
+          "cameraPermission": false,
+          "microphonePermission": false
+        }
+      ],
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Motion adds a subtle tilt and shine to your player card."
+        }
+      ],
+      "expo-font"
+    ]
+  }
+}
